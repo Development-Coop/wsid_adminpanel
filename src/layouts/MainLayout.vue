@@ -80,6 +80,22 @@
       <q-list>
         <q-item to="/" active-class="q-item-no-link-highlighting">
           <q-item-section avatar>
+            <q-icon name="table_chart" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Posts</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item to="/" active-class="q-item-no-link-highlighting">
+          <q-item-section avatar>
+            <q-icon name="person" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Users</q-item-label>
+          </q-item-section>
+        </q-item>
+        <!-- <q-item to="/" active-class="q-item-no-link-highlighting">
+          <q-item-section avatar>
             <q-icon name="dashboard" />
           </q-item-section>
           <q-item-section>
@@ -179,7 +195,7 @@
               </q-item-section>
             </q-item>
           </q-list>
-        </q-expansion-item>
+        </q-expansion-item> -->
         <!--
         <q-item to="/Mail" active-class="q-item-no-link-highlighting">
           <q-item-section avatar>
@@ -239,14 +255,7 @@
             <q-item-label>Cards</q-item-label>
           </q-item-section>
         </q-item> -->
-        <q-item to="/Tables" active-class="q-item-no-link-highlighting">
-          <q-item-section avatar>
-            <q-icon name="table_chart" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Tables</q-item-label>
-          </q-item-section>
-        </q-item>
+
         <!-- <q-item to="/Contact" active-class="q-item-no-link-highlighting">
           <q-item-section avatar>
             <q-icon name="person" />
@@ -300,7 +309,7 @@
             <q-item-label>Product Catalogues</q-item-label>
           </q-item-section>
         </q-item> -->
-        <q-expansion-item icon="menu_open" label="Menu Levels">
+        <!-- <q-expansion-item icon="menu_open" label="Menu Levels">
           <q-item class="q-ml-xl" active-class="q-item-no-link-highlighting">
             <q-item-section>
               <q-item-label>Level 1</q-item-label>
@@ -335,7 +344,7 @@
               </q-item>
             </q-expansion-item>
           </q-expansion-item>
-        </q-expansion-item>
+        </q-expansion-item> -->
       </q-list>
     </q-drawer>
 

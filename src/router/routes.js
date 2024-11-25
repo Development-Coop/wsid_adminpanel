@@ -3,7 +3,8 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      {path: '', component: () => import('pages/Dashboard.vue')},
+      // {path: '', component: () => import('pages/Dashboard.vue')},
+      {path: '', component: () => import('pages/Tables.vue')},
       {path: '/Dashboard2', component: () => import('pages/Dashboard2.vue')},
       {path: '/Profile', component: () => import('pages/UserProfile.vue')},
       {path: '/Map', component: () => import('pages/Map.vue')},
@@ -11,7 +12,6 @@ const routes = [
       {path: '/TreeTable', component: () => import('pages/TreeTable.vue')},
       {path: '/StreetView', component: () => import('pages/StreetView.vue')},
       {path: '/Cards', component: () => import('pages/Cards.vue')},
-      {path: '/Tables', component: () => import('pages/Tables.vue')},
       {path: '/Contact', component: () => import('pages/Contact.vue')},
       {path: '/Checkout', component: () => import('pages/Checkout.vue')},
       {path: '/Ecommerce', component: () => import('pages/ProductCatalogues.vue')},
