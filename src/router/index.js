@@ -1,7 +1,7 @@
 import { route } from 'quasar/wrappers'
 import { createRouter, createMemoryHistory, createWebHistory, createWebHashHistory } from 'vue-router'
 import routes from './routes'
-
+import setupBeforeEach from "./beforeEach";
 /*
  * If not building with SSR mode, you can
  * directly export the Router instantiation;
@@ -25,6 +25,6 @@ export default route(function (/* { store, ssrContext } */) {
     // quasar.conf.js -> build -> publicPath
     history: createHistory(process.env.VUE_ROUTER_BASE)
   })
-
+  setupBeforeEach(Router); // Apply the beforeEach logic to the router
   return Router
 })

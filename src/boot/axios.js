@@ -1,24 +1,53 @@
-import { boot } from 'quasar/wrappers'
-import axios from 'axios'
+import { boot } from "quasar/wrappers";
+import axios from "axios";
 
-// Be careful when using SSR for cross-request state pollution
-// due to creating a Singleton instance here;
-// If any client changes this (global) instance, it might be a
-// good idea to move this instance creation inside of the
-// "export default () => {}" function below (which runs individually
-// for each client)
-const api = axios.create({ baseURL: 'https://api.example.com' })
+// Create a custom axios instance
+const api = axios.create({
+  baseURL: "https://wsi-be.netlify.app/api",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
-export default boot(({ app }) => {
-  // for use inside Vue files (Options API) through this.$axios and this.$api
+export default boot(({ app, router }) => {
+  // Request Interceptor: Add Authorization Header
+  api.interceptors.request.use(
+    (config) => {
+      const token = sessionStorage.getItem("access-token");
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    },
+    (error) => {
+      // Handle request errors
+      return Promise.reject(error);
+    }
+  );
 
-  app.config.globalProperties.$axios = axios
-  // ^ ^ ^ this will allow you to use this.$axios (for Vue Options API form)
-  //       so you won't necessarily have to import axios in each vue file
+  // Response Interceptor: Handle 401/403 Unauthorized
+  api.interceptors.response.use(
+    (response) => {
+      // Return the response if successful
+      return response;
+    },
+    (error) => {
+      console.error("API Error:", error);
 
-  app.config.globalProperties.$api = api
-  // ^ ^ ^ this will allow you to use this.$api (for Vue Options API form)
-  //       so you can easily perform requests against your app's API
-})
+      // Handle 401 and 403 errors globally
+      if (error.response?.status === 401 || error.response?.status === 403) {
+        sessionStorage.clear(); // Clear stored tokens or sensitive data
+        router.push({ path: "/", query: { expired: "true" } }); // Redirect to mobile login route
+      }
 
-export { api }
+      // Reject other errors to allow local handling
+      return Promise.reject(error);
+    }
+  );
+
+  // Make the axios instance available globally
+  app.config.globalProperties.$axios = axios; // Generic axios
+  app.config.globalProperties.$api = api; // Custom API instance
+});
+
+export { api };
