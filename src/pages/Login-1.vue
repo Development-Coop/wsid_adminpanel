@@ -67,8 +67,8 @@ import { useRouter, useRoute } from "vue-router";
 import { useAuthStore } from "src/stores/authStore";
 import { useQuasar } from "quasar";
 
-const username = ref("");
-const password = ref("");
+const username = ref("wsid_dev");
+const password = ref("Login@ws1d");
 const router = useRouter();
 const route = useRoute();
 const authStore = useAuthStore();

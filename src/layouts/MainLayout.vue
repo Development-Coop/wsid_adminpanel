@@ -2,6 +2,14 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
+        <q-btn
+          flat
+          dense
+          round
+          @click="toggleLeftDrawer"
+          icon="menu"
+          aria-label="Menu"
+        />
         <q-toolbar-title> WSID Admin </q-toolbar-title>
         <q-space />
         <div class="q-gutter-sm row items-center no-wrap">
@@ -36,6 +44,31 @@
               </q-item>
             </q-list>
           </q-menu>
+          <q-drawer
+            v-model="leftDrawerOpen"
+            show-if-above
+            bordered
+            class="bg-primary text-white"
+          >
+            <q-list>
+              <q-item to="/dashboard" active-class="active-drawer-item" :active="isActiveRoute('/dashboard')" @click.stop>
+                <q-item-section avatar>
+                  <q-icon name="person" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>Users</q-item-label>
+                </q-item-section>
+              </q-item>
+              <q-item to="/post" active-class="active-drawer-item" :active="isActiveRoute('/post')" @click.stop>
+                <q-item-section avatar>
+                  <q-icon name="table_chart" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>Posts</q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </q-drawer>
         </div>
       </q-toolbar>
     </q-header>
@@ -49,10 +82,12 @@
 <script setup>
 import { ref } from "vue";
 import { useQuasar } from "quasar";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 const $q = useQuasar();
 const menuVisible = ref(false);
-const router = useRouter()
+const leftDrawerOpen = ref(false);
+const router = useRouter();
+const route = useRoute();
 
 const toggleMenu = (event) => {
   event.stopPropagation(); // Prevent the click event from propagating
@@ -66,7 +101,15 @@ const handleFullscreenClick = (event) => {
 
 const logout = () => {
   sessionStorage.clear();
-  router.push("/")
+  router.push("/");
+};
+
+const toggleLeftDrawer = () => {
+  leftDrawerOpen.value = !leftDrawerOpen.value;
+};
+
+const isActiveRoute = (path) => {
+  return route.path === path;
 };
 </script>
 
@@ -101,5 +144,22 @@ const logout = () => {
   70% {
     transform: scale(1);
   }
+}
+.active-drawer-item {
+  background-color: rgba(255, 255, 255, 0.2); /* Primary color for active item */
+  color: white;
+}
+
+.q-drawer .q-item {
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth hover effect */
+}
+
+.q-drawer .q-item:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Subtle hover effect */
+}
+
+.q-item-section {
+  display: flex;
+  align-items: center;
 }
 </style>

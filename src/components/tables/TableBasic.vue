@@ -189,6 +189,7 @@ import { ref, onMounted } from "vue";
 import { useUserStore } from "src/stores/userStore";
 import { useQuasar } from "quasar";
 import fallbackImage from "src/assets/profile-user.png";
+import { useRoute } from "vue-router";
 
 const data = ref([]);
 const loading = ref(false); // Loading state for the table
@@ -200,6 +201,7 @@ const userDetailsDialog = ref(false); // Dialog visibility
 const userDetails = ref({}); // User details to display
 const imgDialog = ref(false); // Control dialog visibility
 const imageSrc = ref("");
+const route = useRoute();
 
 // Pagination state
 const pagination = ref({
@@ -262,6 +264,8 @@ const columns = [
 ];
 
 onMounted(async () => {
+  filter.value = route?.query?.search || ""
+  if (filter.value) show_filter.value = true;
   await fetchData();
 });
 

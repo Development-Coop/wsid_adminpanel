@@ -5,7 +5,8 @@ const routes = [
     children: [
       // {path: '', component: () => import('pages/Dashboard.vue')},
       {path: '', component: () => import('pages/Tables.vue'), meta: { requiresAuth: true },},
-      {path: '/Dashboard2', component: () => import('pages/Dashboard2.vue')},
+      {path: '/post', component: () => import('pages/PostList.vue'), meta: { requiresAuth: true }},
+      {path: '/Dashboard2', component: () => import('pages/Dashboard.vue')},
       {path: '/Profile', component: () => import('pages/UserProfile.vue')},
       {path: '/Map', component: () => import('pages/Map.vue')},
       {path: '/MapMarker', component: () => import('pages/MapMarker.vue')},
