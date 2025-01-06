@@ -1,6 +1,7 @@
 <template>
-  <div class="q-pa-lg">
-    <div class="search-bar">
+  <q-page class="q-pa-sm">
+    <div class="q-pa-lg">
+      <div class="search-bar">
         <q-input
           v-model="searchText"
           outlined
@@ -16,30 +17,31 @@
           </template>
         </q-input>
       </div>
-    <div
-      :class="[
-        'post-wrapper',
-        { 'post-wrapper-loader': isLoading && posts?.length == 0 },
-      ]"
-    >
-      <Post
-        v-for="post in posts"
-        :key="post.id"
-        class="q-pa-md"
-        :post-id="post.id"
-        :user-image="post.user.profilePicUrl"
-        :user-id="post.user.id"
-        :username="post.user.name"
-        :time-ago="post.createdAt"
-        :post-content="post.description"
-        :post-images="post.images"
-        :votes="post.votesCount"
-        :comments="post.commentsCount"
-        @fetch-new-post="fetchNewPosts()"
-      />
-      <q-spinner v-if="isLoading" color="primary" class="spinner" />
+      <div
+        :class="[
+          'post-wrapper',
+          { 'post-wrapper-loader': isLoading && posts?.length == 0 },
+        ]"
+      >
+        <Post
+          v-for="post in posts"
+          :key="post.id"
+          class="q-pa-md"
+          :post-id="post.id"
+          :user-image="post.user.profilePicUrl"
+          :user-id="post.user.id"
+          :username="post.user.name"
+          :time-ago="post.createdAt"
+          :post-content="post.description"
+          :post-images="post.images"
+          :votes="post.votesCount"
+          :comments="post.commentsCount"
+          @fetch-new-post="fetchNewPosts()"
+        />
+        <q-spinner v-if="isLoading" color="primary" class="spinner" />
+      </div>
     </div>
-  </div>
+  </q-page>
 </template>
 
 <script setup>
@@ -47,7 +49,7 @@ import { ref, onMounted, onUnmounted, defineAsyncComponent } from "vue";
 import { usePostStore } from "src/stores/postStore";
 import { useQuasar } from "quasar";
 
-const Post = defineAsyncComponent(() => import('../components/Post.vue'));
+const Post = defineAsyncComponent(() => import("../components/Post.vue"));
 
 const posts = ref([]);
 const currentPage = ref(1); // Tracks the current page
@@ -69,7 +71,7 @@ const fetchNewPosts = async () => {
       limit: 10,
       sortBy: "createdAt",
       order: "desc",
-      search: searchText.value || ""
+      search: searchText.value || "",
     });
     posts.value = newPosts;
     if (newPosts.length > 0) {
@@ -105,7 +107,7 @@ const fetchPosts = async () => {
       limit: 10,
       sortBy: "createdAt",
       order: "desc",
-      search: searchText.value || ""
+      search: searchText.value || "",
     });
     // Check if newPosts contains data
     // Check if there are new posts
@@ -178,7 +180,7 @@ body {
 .spinner {
   justify-self: center;
 }
-:deep(.q-field__inner){
-    background: #fff;
+:deep(.q-field__inner) {
+  background: #fff;
 }
 </style>
