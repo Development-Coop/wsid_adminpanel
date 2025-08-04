@@ -3,7 +3,7 @@ import axios from "axios";
 
 // Create a custom axios instance
 const api = axios.create({
-  baseURL: "https://wsi-be.netlify.app/api",
+  baseURL: "https://wsid-service.netlify.app/api",
   headers: {
     "Content-Type": "application/json",
   },
